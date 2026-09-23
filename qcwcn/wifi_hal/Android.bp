@@ -71,6 +71,9 @@ cc_library_static {
         ".",
         "vendor_nan",
     ],
+    // The CodeLinaro sources include the legacy HAL headers without their
+    // hardware_legacy/ prefix, as the original Android.mk allowed.
+    include_dirs: ["hardware/interfaces/wifi/legacy_headers/include/hardware_legacy"],
     header_libs: [
         "libcutils_headers",
         "libnetlink_iface_headers",
