@@ -62,7 +62,7 @@ static u16 sda_get_service_info_offset(const u8 *buf, size_t buf_len, u8 window)
     }
 
     if (buf_len < (NAN_SD_ATTR_SERVICE_ID_LEN + 3)) {
-        ALOGE("SDA buffer too short %d", buf_len);
+        ALOGE("SDA buffer too short %zu", buf_len);
         return offset;
     }
     buf += NAN_SD_ATTR_SERVICE_ID_LEN + 2;
@@ -125,7 +125,7 @@ static bool is_sda_valid(const u8 *buf, size_t buf_len)
     ALOGI("%s: Validate SD attribute length %d", __FUNCTION__, attr_len);
 
     if (attr_len < NAN_SD_ATTR_MIN_LEN - 3 || buf_len < attr_len) {
-        ALOGE("%s: Invalid attribute length attr_len %d, buf_len %d",
+        ALOGE("%s: Invalid attribute length attr_len %d, buf_len %zu",
               __FUNCTION__, attr_len, buf_len);
         return false;
     }
@@ -208,7 +208,7 @@ static bool is_sdea_valid(const u8 *buf, size_t buf_len)
     ALOGI("Validate SDE attribute, length %d", attr_len);
 
     if (attr_len < NAN_SDE_ATTR_MIN_LEN || buf_len < attr_len) {
-        ALOGE("%s: Invalid attribute length in SDEA attr_len %d, buf_len %d",
+        ALOGE("%s: Invalid attribute length in SDEA attr_len %d, buf_len %zu",
               __FUNCTION__, attr_len, buf_len);
         return false;
     }
@@ -345,8 +345,8 @@ static bool nan_get_sde_attr(u8 *frame, u16 frame_len, nan_sdea *sdea)
     u16 service_info_len;
 
     if (!sdea || !frame || (frame_len < NAN_SDE_ATTR_MIN_LEN)) {
-        ALOGE("%s: Incorrect arguments 0x%x 0x%x or length %d",
-              __FUNCTION__, sdea, frame, frame_len);
+        ALOGE("%s: Incorrect arguments (sdea %s, frame %s) or length %u",
+              __FUNCTION__, sdea ? "set" : "null", frame ? "set" : "null", frame_len);
         return false;
     }
 
@@ -434,7 +434,7 @@ void nan_process_followup_frame(wifi_handle handle, const u8 *buf,
     memset(&npba, 0, sizeof(NanFWBootstrappingParams));
 
     if (len < 5) {
-        ALOGE("%s: Frame length too short %d", __FUNCTION__, len);
+        ALOGE("%s: Frame length too short %zu", __FUNCTION__, len);
         return;
     }
     pos = (u8 *)buf + 4;
@@ -448,7 +448,7 @@ void nan_process_followup_frame(wifi_handle handle, const u8 *buf,
         u16 attrLen = WPA_GET_LE16(pos + 1);
 
         if (!attrLen || len < (attrLen + 3)) {
-            ALOGE("%s: SDF Invalid Frame: framelen = %d attrId = 0x%x attrlen = %d",
+            ALOGE("%s: SDF Invalid Frame: framelen = %zu attrId = 0x%x attrlen = %d",
                   __FUNCTION__, len, attrId, attrLen);
             return;
         }
