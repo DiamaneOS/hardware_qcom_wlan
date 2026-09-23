@@ -1,0 +1,30 @@
+soong_namespace {
+}
+
+package {
+    default_applicable_licenses: ["hardware_qcom_wlan_license"],
+}
+
+cc_library_headers {
+    name: "libcld80211_headers",
+    vendor: true,
+    export_include_dirs: ["."],
+}
+
+cc_library_shared {
+    name: "libcld80211",
+    vendor: true,
+    srcs: ["cld80211_lib.c"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wno-unused-parameter",
+    ],
+    header_libs: ["libcld80211_headers"],
+    export_header_lib_headers: ["libcld80211_headers"],
+    shared_libs: [
+        "libcutils",
+        "liblog",
+        "libnl",
+    ],
+}
