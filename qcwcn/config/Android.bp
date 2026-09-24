@@ -1,0 +1,9 @@
+// The supplicant copies this template to /data/vendor/wifi/wpa on first use.
+// Generated from wpa_supplicant_8's own template, as AOSP does.
+prebuilt_etc {
+    name: "wpa_supplicant.conf",
+    src: ":wpa_supplicant_conf_gen",
+    sub_dir: "wifi",
+    vendor: true,
+    licenses: ["external_wpa_supplicant_8_license"],
+}
