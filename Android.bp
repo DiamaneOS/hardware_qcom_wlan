@@ -1,7 +1,7 @@
 // DiamaneOS: Soong build for the CodeLinaro Qualcomm Wi-Fi HAL. It replaces
 // AOSP's hardware/qcom/wlan and keeps the libwifi-hal-qcom defaults name that
 // frameworks/opt/net/wifi/libwifi_hal selects for BOARD_WLAN_DEVICE qcwcn.
-// Only the vendor HAL and the cld80211 library are built; the wpa_supplicant
+// Only the vendor HAL and the cld80211 library are built. The wpa_supplicant
 // private library, vendor NAN AIDL, NAN pairing (PASN) and wcnss-service are not.
 
 package {
