@@ -45,6 +45,7 @@
 
 #include "includes.h"
 #include <sys/types.h>
+#include <inttypes.h>
 #include <fcntl.h>
 #include <net/if.h>
 #include <netlink/genl/genl.h>
@@ -2936,7 +2937,7 @@ void print_setup_cmd_values(struct twt_setup_parameters *twt_setup_params)
 		   twt_setup_params->min_wake_duration);
 	wpa_printf(MSG_DEBUG, "TWT: max wake duration: %d ",
 		   twt_setup_params->max_wake_duration);
-	wpa_printf(MSG_DEBUG, "TWT: wake tsf: 0x%llx ",
+	wpa_printf(MSG_DEBUG, "TWT: wake tsf: 0x%" PRIx64 " ",
 		   twt_setup_params->wake_tsf);
 	wpa_printf(MSG_DEBUG, "TWT: announce timeout(in us): %u",
 		   twt_setup_params->announce_timeout_us);
@@ -5792,7 +5793,7 @@ static int wpa_driver_tsf_cmd_resp_handler(struct resp_info *info,
 		return NL_SKIP;
 	}
 	ret = os_snprintf(info->reply_buf, info->reply_buf_len,
-			  "tsf_value:%llu host_time:%llu", tsf_value, host_time);
+			  "tsf_value:%" PRIu64 " host_time:%" PRIu64, tsf_value, host_time);
 	if (os_snprintf_error(info->reply_buf_len, ret)) {
 		wpa_printf(MSG_ERROR, "%s:Fail to print buffer", __func__);
 		return -ENOMEM;
@@ -6493,7 +6494,7 @@ struct mlo_ul_mu_info {
 	struct mlo_link_state {
 		u8 link_id;
 		u8 ul_mu_mode;
-	} link_ul_mu_info[MAX_NUM_MLO_LINKS + 1];
+	} link_ul_mu_info[MAX_NUM_MLD_LINKS + 1];
 };
 
 static bool mlo_ul_mu_process_cmd_string(char *cmd, struct mlo_ul_mu_info *info)
